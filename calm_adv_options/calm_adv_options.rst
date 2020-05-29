@@ -17,3 +17,16 @@ Infrastructure-as-a-Service (IaaS) is defined as the ability to quickly provide 
 
 Creating a Single VM Blueprint
 ++++++++++++++++++++++++++++++
+
+
+#. Go to Calm and create new something
+
+   .. figure:: images/nathan_test.png
+       :align: center
+       :alt: Nathan Test
+
+       Nathan Test
+
+
+
+   .. figure:: images/nathan_test.png
