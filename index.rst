@@ -45,6 +45,7 @@
   :name: _optional_labs
   :hidden:
 
+  calm_adv_options/calm_adv_options
   flow_assign_categories_in_calm/flow_assign_categories_in_calm
 
 .. toctree::
