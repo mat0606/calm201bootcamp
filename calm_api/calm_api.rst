@@ -37,7 +37,7 @@ Create a Project in Calm
 Projects are the logical construct that integrate Calm with Nutanix’s native Self-Service Portal (SSP) capabilities, allowing an administrator to assign both infrastructure resources and the roles/permissions of Active Directory users/groups to specific Blueprints and Applications.
 
 
-#. Click on |proj-icon|.  Click on **"Create Project"**.
+#. Click on |proj-icon| **Project** in the left hand toolbar .  Click on **Create Project**.
 
    .. figure:: images/project_list.png
 
@@ -61,7 +61,7 @@ Projects are the logical construct that integrate Calm with Nutanix’s native Sel
 Create a Blueprint in Calm
 ++++++++++++++++++++++++++
 
-Blueprint is like an architect blueprint which design every facet from the piller to the façade of the building.  The automation designer design every aspects of the automation from the provisioning of the VM to installation of packages.  
+Blueprint is like an architect blueprint which design every facet from the pillar to the facade of the building.  The automation designer design every aspects of the automation from the provisioning of the VM to installation of packages.  
 
 #. Click on |blueprint-icon|.  Click on **Create Blueprint**.  
 
@@ -69,7 +69,7 @@ Blueprint is like an architect blueprint which design every facet from the pille
    
 .. figure:: images/multi_vm_blueprints.png
 
-#. Fill in the blueprint name.  Select the Project.  Click on **Proceed**.
+#. Fill in the **blueprint name**.  Select the **Project**.  Click on **Proceed**.
 
    .. figure:: images/blueprint_name.png
 
@@ -79,12 +79,13 @@ Blueprint is like an architect blueprint which design every facet from the pille
 
 #. Click on Credential to add a credential.  The credentials were used for the following purposes:
 
-	-. Login to the newly provisioned guest OS.
-	-.  Credential to login to Prism Central or any 3rd party application.
+   - Login to the newly provisioned guest OS.
+   - Credential to login to Prism Central or any 3rd party application.
 
    .. figure:: images/credential.png
 
-#.  Add in the Credential for Prism Central.  Get the password from the provided spreadsheet.
+#.  Add in the **Credential** for Prism Central.  Get the password from the spreadsheet provided by the trainer.
+
    .. figure:: images/pc_credential.png
 
 #. Fill out the following fields:
@@ -136,16 +137,18 @@ Blueprint is like an architect blueprint which design every facet from the pille
 #. Click **Save**, and then **Back**.
 
 
-#.  Look at the Service1 on the right of the screen.
+#.  Look at the **Service1** on the right of the screen.
 
    .. figure:: images/service_name.png
 
-#.  Fill in the VM Configuration.
+#.  Fill in the **VM Configuration**.
 
    .. figure:: images/vm.png
 
-#.  Copy the cloud-init contents into the screen.
-  ::
+#.  Copy the **cloud-init** contents into the screen.
+  
+   .. note::
+   
     #cloud-config
     users:
     - name: centos
@@ -165,7 +168,7 @@ Blueprint is like an architect blueprint which design every facet from the pille
 
    .. figure:: images/blueprint_nic.png
 
-#.  Select centos for the credential.
+#.  Select **centos** for the credential.
  
   .. figure:: images/blueprint_credential.png
 
@@ -218,15 +221,15 @@ These operations were available in the Prism Central v3 API.  (https://www.nutan
 
 Nutanix APIs were available in REST (Representational State Transfer).  REST service could be easily consumed by the different browsers and 3rd party integrations in the familiar HTTP and HTTPS protocol.  These operations were available in the HTTP/HTTPS protocol and each operation served a purpose.
 
-#. **GET** - Retrieve representation of the member resource in the response body.
+#. **GET**  Retrieve representation of the member resource in the response body.
 
-#. **POST** - Create a member resource in the member resource using the instructions in the request body
+#. **POST**  Create a member resource in the member resource using the instructions in the request body
 
-#. **PUT** - Replace all the representations of the member resource with the representation in the request body.
+#. **PUT**  Replace all the representations of the member resource with the representation in the request body.
 
-#. **PATCH** - Update all the representations of the member resource, or may create the member resource if it does not exist, using the instructions in the request body.
+#. **PATCH**  Update all the representations of the member resource, or may create the member resource if it does not exist, using the instructions in the request body.
 
-#. **DELETE** - Delete all the representations of the member resource
+#. **DELETE**  Delete all the representations of the member resource
 
 Each API call would comprise of the following:
 
@@ -235,9 +238,16 @@ Each API call would comprise of the following:
 #. Type of Authentication: BASIC
 #. Username
 #. Password
-#. Request Parameters.  The no of request parameters were dependent on the API
-Each API call would return the following:
-Status Code: 200, 201 (OK), 404 (Not Found), 500 (Internal Server Error)
+
+#. Request Parameters.  The no of request parameters were dependent on the API.
+
+#.  Each API call would return the following status Code: 
+
+  - 200, 201 (OK) 
+  - 404 (Not Found) 
+  - 403 (Authorization Error) 
+  - 500 (Internal Server Error)
+
 #. Response Parameters.  The no of response parameters were dependent on the API
 
 Use Nutanix for Day 2 Operation
@@ -247,10 +257,11 @@ Clone the centOS VM
 ....................
 
 The purpose for cloning the Centos VM is to allow the trainee to change the memory of the Centos VM.
+
 #. Click on **Virtual Infrastructure->VM**.
    .. figure:: images/pc_vm.png
 
-#.  Click on Clone.  Named it to CentOS<trainee number>
+#.  Click on Clone.  Name it to CentOS<trainee number>
    .. figure:: images/vm_clone.png
 
 Change the VM Memory
@@ -265,6 +276,7 @@ Translate the use case into api operation
 .........................................
 
 The use case could be translated into 3 operations:
+
 #. Retrieve a list of VMs for the user to select
 #. Change to the new memory size and power off the VM
 #. Power on the VM
@@ -278,20 +290,23 @@ Operation 1: Retrieve a list of VM for the user to select
 https://www.nutanix.dev/reference/prism_central/v3/api/vms/postvmslist/
 
 #.  Each API call would comprise of the following:
-	-.  URL of the REST service. – **https://<Prism Central IP>:9440/api/nutanix/v3/vms/list** 
-	-.  Authentication & Authorization
-		+. Type of Authentication: **BASIC**
+	-  URL of the REST service. **https://<Prism Central IP>:9440/api/nutanix/v3/vms/list** 
 
-		+. Username: **admin**
+	-  Authentication & Authorization
+		+ Type of Authentication: **BASIC**
+
+		+ Username: **admin**
 		
-    		+. Password: <Prism Central Password”
-	-.  These are the request parameters. 
+    		+ Password: <Prism Central Password”
+
+	-  These are the request parameters. 
  
 		.. figure:: images/nutanix_api_pc.png
 
 	-.  This is an example of the request parameter.
 
-	::
+   .. note::
+	
   	"kind": "vm",
   	"sort_order": "ASCENDING",
   	"offset": 0,
@@ -301,22 +316,23 @@ https://www.nutanix.dev/reference/prism_central/v3/api/vms/postvmslist/
 API Verification with Postman
 .............................
 
-#.  Open the Postman.  Key in the URL of the Prism Central.  This is a POST request
+#.  Open the **Postman**.  Key in the **URL of the Prism Central**.  This is a **POST** request
+
    .. figure:: images/postman.png
 
-#.  Fill in the following in the Authorization tab.
+#.  Fill in the following in the **Authorization** tab.
    .. figure:: images/postman_authorization.png
 
-#.  Fill in the header.
+#.  Fill in the **header**.
    .. figure:: images/postman_header.png
 
-#.  Fill in the following in the body.
+#.  Fill in the following in the **body**.
    .. figure:: images/postman_body.png
 
-#.  Click on Send.
+#.  Click on **Send**.
    .. figure:: images/postman_send.png
 
-#.   Scroll down to view the response of the REST service call.  This is successful.
+#.   Scroll down to view the **response of the REST service call**.  This is successful.
    .. figure:: images/postman_success.png
 
 #.  Take note of the response structure.  The VM name was in entities.metadata.name.  The VM uuid was in entities.metadata.uuid.  The VM name was used to display for user selection.  
@@ -331,9 +347,9 @@ Create a dynamic variable in Calm
 
 #. Create the following variables:
 
-	-. PC_IP  **Store the value for Prism Central IP**
+	- PC_IP  **Store the value for Prism Central IP**
 
-	-. newMemSize  **Store the value for New Memory Size in Mb**
+	- newMemSize  **Store the value for New Memory Size in Mb**
 
    .. figure:: images/variable_new_memory.png
 
@@ -346,7 +362,7 @@ Create a dynamic variable in Calm
 
 #.  Examine the following python scripts.  This section of the python script configured the user name, password, Prism Central IP address (destination for the api) and the request structure.   Copy this contents into the escript.
 
-  .. note::
+  .. code-block:: bash
 
 user = "admin"
 password = "Fill in the password in your PC"
@@ -358,7 +374,7 @@ return r
 
 #. The payload was the mandatory request parameters to be passed into the api.  Please copy the contents into the escript
   
-   .. note::
+   .. code-block:: bash
 
 payload = {
   "kind": "vm",
@@ -370,7 +386,7 @@ payload = {
 
 #. This section of the python script was to invoke the request to the api.  Copy this section of the scripts into the escript.
   
-   .. note::
+   .. code-block:: bash
 
 base_url = "https://" + ip + ":9440/api/nutanix/v3/vms"
 url = base_url + "/list"
@@ -379,8 +395,10 @@ url_method = "POST"
 
 r = process_request(url, url_method, user, password, headers, json.dumps(payload))
 
-#.  This section of the python script was to extract the vm name from the api response. 
-  ::
+#.  This section of the python script was to extract the vm name from the api response.
+ 
+   .. code-block:: bash
+
 vm_list = []
 vm_list_json = r.json()
 for vm in vm_list_json['entities']:
@@ -397,25 +415,25 @@ print ','.join(vm_list)
 
    .. figure:: images/calm_launch_bp.png
 
-1.1.1Operation 2: Retrieve the VM details and power off the VM
+Operation 2: Retrieve the VM details and power off the VM
 ..........................................................
 
-#.  Go to the Service on the right side of the screen.  Change the **Cloud** from **Nutanix** to **Existing Machine**.  Changing the VM memory is not to provision but automating on an existing machine.
+#.  Go to the **Service** on the right side of the screen.  Change the **Cloud** from **Nutanix** to **Existing Machine**.  Changing the VM memory is not to provision but automating on an existing machine.
 
    .. figure:: images/vm_existing_machine.png
 
-#. Fill in an IP address.  Since the execution was based on the selection of the VM, the contents in this field does not matter.  
+#. Fill in an **IP address**.  Since the execution was based on the selection of the VM, the contents in this field does not matter.  
 
    .. figure:: images/vm_ip_address.png
 
-#. Click on “Package->Install”.  Click on “+ Task”
+#. Click on **Package->Install**.  Click on **+ Task**
 
    .. figure:: images/package_install.png
 
-#. Named the task: UpdateMemory
+#. Name the task: **UpdateMemory**
 
-	-. Type: Execute 
-	-. Script Type: Escript
+	- Type: Execute 
+	- Script Type: Escript
 
    .. figure:: images/task_update_memory.png
 
@@ -424,13 +442,13 @@ https://www.nutanix.dev/reference/prism_central/v3/api/vms/putvmsuuid/
 
 #. Copy the contents into the escript.  This section of the escript defines the following:
 
-	-. Credential
+	- Credential
 
-	-. Destination of the API: <Prism Central>
+	- Destination of the API: <Prism Central>
 
-	-. Define the structure for the http request.
+	- Define the structure for the http request.
 
-   .. note::
+   .. code-block:: bash
 
 user = "@@{PC.username}@@"
 password = "@@{PC.secret}@@"
@@ -442,7 +460,7 @@ def process_request(url, method, user, password, headers, payload=None):
 
 #.   Copy the contents into the escript.  This section of the escript define the request parameters to filter the specific VM instead of all the VMs in the cluster.
   
-   .. note::
+   .. code-block:: bash
 
 payload = {
   "filter": "vm_name==@@{vmname}@@",
@@ -455,7 +473,7 @@ payload = {
 
 #.  Copy the contents into the escript.  This section will execute and retrieve the specific VM.
 
-   .. note::
+   .. code-block:: bash
 
 base_url = "https://" + ip + ":9440/api/nutanix/v3/vms"
 url = base_url + "/list"
@@ -472,7 +490,7 @@ for vm in vm_list_json['entities']:
       
 #.  Copy the contents into the escript.  This section manipulates the json contents to change to the new memory size and power off the VM.
 
-   .. note::
+   .. code-block:: bash
 
 del vm_json['status']
 del vm_json['spec']['resources']['memory_size_mib']
@@ -484,7 +502,7 @@ print "VM JSON: " + json.dumps(vm_json)
 
 #. Copy the contents into the escript.  This section will put the new json specification to the Prism Central to execute the changes.  If Prism Central executed the changes successfully, it will return exit 0.  Otherwise, it is exit 1.
 
-   .. note::
+   .. code-block:: bash
 
 url = base_url + "/" + str(vm_json['metadata']['uuid'])
 url_method = "PUT"
@@ -516,6 +534,7 @@ else:
 #. Drill into **CentosVM**
    .. figure:: images/centos_vm.png
 
+
 Operation 3: Power on the VM
 ............................
 
@@ -526,5 +545,5 @@ Operation 3: Power on the VM
 #. The end result is the memory of the VM was changed and powered on.
 
 
-.. |proj-icon| figure: images/project_icon.png
+.. |proj-icon| figure:: images/project_icon.png
 .. |blueprint-icon| figure:: images/blueprint_icon.png
