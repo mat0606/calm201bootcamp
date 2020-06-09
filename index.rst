@@ -8,3 +8,12 @@
 
   calm_api/calm_api
   
+
+.. toctree::
+  :maxdepth: 2
+  :caption: CI/CD with Nutanix Calm & Karbon
+  :name: _calm_karbon_cicd
+  :hidden:
+
+  calm_karbon_cicd/calm_karbon_cicd
+  
