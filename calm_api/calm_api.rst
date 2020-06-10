@@ -37,7 +37,7 @@ Create a Project in Calm
 Projects are the logical construct that integrate Calm with Nutanix’s native Self-Service Portal (SSP) capabilities, allowing an administrator to assign both infrastructure resources and the roles/permissions of Active Directory users/groups to specific Blueprints and Applications.
 
 
-#. Click on .. |proj-icon| figure:: images/project_icon.png **Project** in the left hand toolbar .  Click on **Create Project**.
+#. Click on **Project** in the left hand toolbar .  Click on **Create Project**.
 
    .. figure:: images/project_list.png
 
@@ -63,7 +63,7 @@ Create a Blueprint in Calm
 
 Blueprint is like an architect blueprint which design every facet from the pillar columns to the facade of the building.  The automation designer design every aspects of the automation from the provisioning of the VM to installation of packages.  
 
-#. Click on |blueprint-icon|.  Click on **Create Blueprint**.  
+#. Click on **Create Blueprint**.  
 
 #. Choose **Multi-VM/pod** blueprint
    
@@ -375,53 +375,53 @@ Create a dynamic variable in Calm
 
 #. Examine the following python scripts.  This section of the python script configured the user name, password, Prism Central IP address (destination for the api) and the request structure.   Copy this contents into the escript
 
-.. code-block:: python
- 
- user = "admin"
- password = "Fill in the password in your PC"
- ip = "Fill in the PC IP"
- 
- def process_request(url, method, user, password, headers, payload=None):
-  r = urlreq(url, verb=method, auth="BASIC", user=user, passwd=password, params=payload, 
- verify=False, headers=headers)
- return r
+  .. code-block:: python
+   
+   user = "admin"
+   password = "Fill in the password in your PC"
+   ip = "Fill in the PC IP"
+   
+   def process_request(url, method, user, password, headers, payload=None):
+    r = urlreq(url, verb=method, auth="BASIC", user=user, passwd=password, params=payload, 
+   verify=False, headers=headers)
+   return r
 
 
 #. The payload was the mandatory request parameters to be passed into the api.  Please copy the contents into the escript
 
-.. code-block:: python
-   
- payload = {
-  "kind": "vm",
-  "sort_order": "ASCENDING",
-  "offset": 0,
-  "length": 256,
-  "sort_attribute": "vm_name"
- }
+  .. code-block:: python
+     
+   payload = {
+    "kind": "vm",
+    "sort_order": "ASCENDING",
+    "offset": 0,
+    "length": 256,
+    "sort_attribute": "vm_name"
+   }
 
 
 #. This section of the python script was to invoke the request to the api.  Copy this section of the scripts into the escript
   
-.. code-block:: python
-   
- base_url = "https://" + ip + ":9440/api/nutanix/v3/vms"
- url = base_url + "/list"
- headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
- url_method = "POST"
+  .. code-block:: python
+     
+   base_url = "https://" + ip + ":9440/api/nutanix/v3/vms"
+   url = base_url + "/list"
+   headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
+   url_method = "POST"
 
- r = process_request(url, url_method, user, password, headers, json.dumps(payload))
+   r = process_request(url, url_method, user, password, headers, json.dumps(payload))
 
 #. This section of the python script was to extract the vm name from the api response
 
-.. code-block:: python
-   
- vm_list = []
- vm_list_json = r.json()
- for vm in vm_list_json['entities']:
-  if vm['spec']: #sometimes this value will be '{}'
-    vm_list.append("{}".format(vm['spec']['name']))
+  .. code-block:: python
+     
+   vm_list = []
+   vm_list_json = r.json()
+   for vm in vm_list_json['entities']:
+    if vm['spec']: #sometimes this value will be '{}'
+      vm_list.append("{}".format(vm['spec']['name']))
 
- print ','.join(vm_list) 
+   print ','.join(vm_list) 
 
 #. This was the picture of the consolidated script.
 
@@ -469,76 +469,76 @@ Operation 2: Retrieve the VM details and power off the VM
 
 	- Define the structure for the http request.
 
-.. code-block:: python
-  
- user = "@@{PC.username}@@"
- password = "@@{PC.secret}@@"
- ip = "@@{PC_IP}@@"
+  .. code-block:: python
+    
+   user = "@@{PC.username}@@"
+   password = "@@{PC.secret}@@"
+   ip = "@@{PC_IP}@@"
 
- def process_request(url, method, user, password, headers, payload=None):
- r = urlreq(url, verb=method, auth="BASIC", user=user, passwd=password, params=payload, verify=False, headers=headers)
- return r
+   def process_request(url, method, user, password, headers, payload=None):
+   r = urlreq(url, verb=method, auth="BASIC", user=user, passwd=password, params=payload, verify=False, headers=headers)
+   return r
    
 
 #. Copy the contents into the escript.  This section of the escript define the request parameters to filter the specific VM instead of all the VMs in the cluster.
   
-.. code-block:: python
-   
- payload = {
-  "filter": "vm_name==@@{vmname}@@",
-  "kind": "vm",
-  "sort_order": "ASCENDING",
-  "offset": 0,
-  "length": 256,
-  "sort_attribute": "vm_name"
- }  
+  .. code-block:: python
+     
+   payload = {
+    "filter": "vm_name==@@{vmname}@@",
+    "kind": "vm",
+    "sort_order": "ASCENDING",
+    "offset": 0,
+    "length": 256,
+    "sort_attribute": "vm_name"
+   }  
 
 
 
 #. Copy the contents into the escript.  This section will execute and retrieve the specific VM.
 
-.. code-block:: python
-  
- base_url = "https://" + ip + ":9440/api/nutanix/v3/vms"
- url = base_url + "/list"
- headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
- url_method = "POST"
+  .. code-block:: python
+    
+   base_url = "https://" + ip + ":9440/api/nutanix/v3/vms"
+   url = base_url + "/list"
+   headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
+   url_method = "POST"
 
- r = process_request(url, url_method, user, password, headers, json.dumps(payload))
- print "Response Status: " + str(r.status_code)
- vm_list_json = r.json()
- for vm in vm_list_json['entities']:
-  if vm['spec']: #sometimes this value will be '{}'
-    if (vm['spec']['name'] == "@@{vmname}@@"):
-      vm_json = vm   
+   r = process_request(url, url_method, user, password, headers, json.dumps(payload))
+   print "Response Status: " + str(r.status_code)
+   vm_list_json = r.json()
+   for vm in vm_list_json['entities']:
+    if vm['spec']: #sometimes this value will be '{}'
+      if (vm['spec']['name'] == "@@{vmname}@@"):
+        vm_json = vm   
       
 #. Copy the contents into the escript.  This section manipulates the json contents to change to the new memory size and power off the VM.
 
-.. code-block:: python
-  
- del vm_json['status']
- del vm_json['spec']['resources']['memory_size_mib']
- del vm_json['spec']['resources']['power_state']
+  .. code-block:: python
+    
+   del vm_json['status']
+   del vm_json['spec']['resources']['memory_size_mib']
+   del vm_json['spec']['resources']['power_state']
 
- vm_json['spec']['resources']['memory_size_mib'] = @@{newMemSize}@@
- vm_json['spec']['resources']['power_state'] = "OFF"
- print "VM JSON: " + json.dumps(vm_json)
+   vm_json['spec']['resources']['memory_size_mib'] = @@{newMemSize}@@
+   vm_json['spec']['resources']['power_state'] = "OFF"
+   print "VM JSON: " + json.dumps(vm_json)
    
 
 #. Copy the contents into the escript.  This section will put the new json specification to the Prism Central to execute the changes.  If Prism Central executed the changes successfully, it will return exit 0.  Otherwise, it is exit 1.
 
-.. code-block:: python
- 
- url = base_url + "/" + str(vm_json['metadata']['uuid'])
- url_method = "PUT"
- r = process_request(url, url_method, user, password, headers, json.dumps(vm_json))
- print "Response Status: " + str(r.status_code)
- print "Response: ", r.json()
- if (r.ok):
-  sleep(120)
-  exit(0)
- else:  
-  exit(1)  
+  .. code-block:: python
+   
+   url = base_url + "/" + str(vm_json['metadata']['uuid'])
+   url_method = "PUT"
+   r = process_request(url, url_method, user, password, headers, json.dumps(vm_json))
+   print "Response Status: " + str(r.status_code)
+   print "Response: ", r.json()
+   if (r.ok):
+    sleep(120)
+    exit(0)
+   else:  
+    exit(1)  
    
 
 #. Launch the Blueprint.  
