@@ -11,9 +11,9 @@ Pre-requisite:
 
 #.  This course assumes the trainees have basic knowledge of Calm and understand the constructs in Calm.
 
-#.  Python knowledge would be an added advantage but not essential.
+#.  **Python** knowledge would be an added advantage but not essential.
 
-#.  This lab requires the use of Postman.  Download and install Postman using this url.  For Nutanix employee, install it in the notebook and connect to the VPN.  For partners & customers, create a new VM using disk image for WindowsTool.qcow2.  
+#.  This lab requires the use of Postman.  Download and install Postman using this url.  For **Nutanix employee, install it in the notebook and connect to the VPN**.  For **partners & customers, create a new VM using disk image for WindowsTool.qcow2**.  
 
 https://www.postman.com/downloads/
 
@@ -61,7 +61,7 @@ Projects are the logical construct that integrate Calm with Nutanix’s native Sel
 Create a Blueprint in Calm
 ++++++++++++++++++++++++++
 
-Blueprint is like an architect blueprint which design every facet from the pillar to the facade of the building.  The automation designer design every aspects of the automation from the provisioning of the VM to installation of packages.  
+Blueprint is like an architect blueprint which design every facet from the pillar columns to the facade of the building.  The automation designer design every aspects of the automation from the provisioning of the VM to installation of packages.  
 
 #. Click on |blueprint-icon|.  Click on **Create Blueprint**.  
 
@@ -84,7 +84,7 @@ Blueprint is like an architect blueprint which design every facet from the pilla
 
    .. figure:: images/credential.png
 
-#.  Add in the **Credential** for Prism Central.  Get the password from the spreadsheet provided by the trainer.
+#. Add in the **Credential** for Prism Central.  Get the password from the spreadsheet provided by the trainer.
 
    .. figure:: images/pc_credential.png
 
@@ -95,7 +95,7 @@ Blueprint is like an architect blueprint which design every facet from the pilla
    - **Secret Type** - password
    - **Password** - <Key in Prism Central password>
 
-#.  Create the credential for centos.  Fill out the following fields:
+#. Create the credential for centos.  Fill out the following fields:
 
 
    - **Credential Name** - centos
@@ -137,15 +137,15 @@ Blueprint is like an architect blueprint which design every facet from the pilla
 #. Click **Save**, and then **Back**.
 
 
-#.  Look at the **Service1** on the right of the screen.
+#. Look at the **Service1** on the right of the screen.
 
    .. figure:: images/service_name.png
 
-#.  Fill in the **VM Configuration**.
+#. Fill in the **VM Configuration**.
 
    .. figure:: images/vm.png
 
-#.  Copy the **cloud-init** contents into the screen.
+#. Copy the **cloud-init** contents into the screen.
   
    .. note::
    
@@ -155,12 +155,13 @@ Blueprint is like an architect blueprint which design every facet from the pilla
     ssh-authorized-keys:
       - @@{centos_public_key}@@
     sudo: ['ALL=(ALL) NOPASSWD:ALL'] 
+
   
-#.  This is the picture of the cloud-init
+#. This is the picture of the cloud-init
 
    .. figure:: images/cloud-init.png
 
-#.  Choose the **Centos-7-x86_64-GenericCloud-18** image
+#. Choose the **Centos-7-x86_64-GenericCloud-18** image
 
    .. figure:: images/disk_image.png
 
@@ -168,15 +169,15 @@ Blueprint is like an architect blueprint which design every facet from the pilla
 
    .. figure:: images/blueprint_nic.png
 
-#.  Select **centos** for the credential.
+#. Select **centos** for the credential.
  
   .. figure:: images/blueprint_credential.png
 
-#.  On the left side of the screen, click on **Default**.
+#. On the left side of the screen, click on **Default**.
 
    .. figure:: images/app_profile.png
 
-#.  On the right side of the screen, add a new variable.  This variable was essential to set the public cloud into the cloud-init of the GuestOS.
+#. On the right side of the screen, add a new variable.  This variable was essential to set the public cloud into the cloud-init of the GuestOS.
 
    .. figure:: images/variable_pk.png
 
@@ -185,7 +186,7 @@ Blueprint is like an architect blueprint which design every facet from the pilla
 
    .. figure:: images/launch_bp.png
 
-#.  The application was started successfully.
+#. The application was started successfully.
 
    .. figure:: images/app_audit.png
 
@@ -241,7 +242,7 @@ Each API call would comprise of the following:
 
 #. Request Parameters.  The no of request parameters were dependent on the API.
 
-#.  Each API call would return the following status Code: 
+#. Each API call would return the following status Code: 
 
   - 200, 201 (OK) 
   - 404 (Not Found) 
@@ -289,7 +290,7 @@ Operation 1: Retrieve a list of VM for the user to select
 
 https://www.nutanix.dev/reference/prism_central/v3/api/vms/postvmslist/
 
-#.  Each API call would comprise of the following:
+#. Each API call would comprise of the following:
 	-  URL of the REST service. **https://<Prism Central IP>:9440/api/nutanix/v3/vms/list** 
 
 	-  Authentication & Authorization
@@ -316,26 +317,26 @@ https://www.nutanix.dev/reference/prism_central/v3/api/vms/postvmslist/
 API Verification with Postman
 .............................
 
-#.  Open the **Postman**.  Key in the **URL of the Prism Central**.  This is a **POST** request
+#. Open the **Postman**.  Key in the **URL of the Prism Central**.  This is a **POST** request
 
    .. figure:: images/postman.png
 
-#.  Fill in the following in the **Authorization** tab.
+#. Fill in the following in the **Authorization** tab.
    .. figure:: images/postman_authorization.png
 
-#.  Fill in the **header**.
+#. Fill in the **header**.
    .. figure:: images/postman_header.png
 
-#.  Fill in the following in the **body**.
+#. Fill in the following in the **body**.
    .. figure:: images/postman_body.png
 
-#.  Click on **Send**.
+#. Click on **Send**.
    .. figure:: images/postman_send.png
 
-#.   Scroll down to view the **response of the REST service call**.  This is successful.
+#. Scroll down to view the **response of the REST service call**.  This is successful.
    .. figure:: images/postman_success.png
 
-#.  Take note of the response structure.  The VM name was in entities.metadata.name.  The VM uuid was in entities.metadata.uuid.  The VM name was used to display for user selection.  
+#. Take note of the response structure.  The **VM name** was in **entities.metadata.name**.  The **VM uuid** was in **entities.metadata.uuid**.  The VM name was used to display for user selection.  
    .. figure:: images/api_response.png
 
 Create a dynamic variable in Calm
@@ -351,16 +352,16 @@ Create a dynamic variable in Calm
 
 	- newMemSize  **Store the value for New Memory Size in Mb**
 
-   .. figure:: images/variable_new_memory.png
+     .. figure:: images/variable_new_memory.png
 
 #. Check the **Mark this variable mandatory** to allow the user to key in the new memory size.
 
    .. figure:: images/variable_mandatory.png
 
-#.  Create a dynamic variable named vmname
+#. Create a dynamic variable named vmname
    .. figure:: images/variable_vmname.png
 
-#.  Examine the following python scripts.  This section of the python script configured the user name, password, Prism Central IP address (destination for the api) and the request structure.   Copy this contents into the escript.
+#. Examine the following python scripts.  This section of the python script configured the user name, password, Prism Central IP address (destination for the api) and the request structure.   Copy this contents into the escript.
 
   .. code-block:: bash
 
@@ -395,7 +396,7 @@ url_method = "POST"
 
 r = process_request(url, url_method, user, password, headers, json.dumps(payload))
 
-#.  This section of the python script was to extract the vm name from the api response.
+#. This section of the python script was to extract the vm name from the api response.
  
    .. code-block:: bash
 
@@ -411,14 +412,14 @@ print ','.join(vm_list)
 
    .. figure:: images/api_list_vm.png
 
-#.  Launch the blueprint to check on the display for the selection of the VM.
+#. Launch the blueprint to check on the display for the selection of the VM.
 
    .. figure:: images/calm_launch_bp.png
 
 Operation 2: Retrieve the VM details and power off the VM
 ..........................................................
 
-#.  Go to the **Service** on the right side of the screen.  Change the **Cloud** from **Nutanix** to **Existing Machine**.  Changing the VM memory is not to provision but automating on an existing machine.
+#. Go to the **Service** on the right side of the screen.  Change the **Cloud** from **Nutanix** to **Existing Machine**.  Changing the VM memory is not to provision but automating on an existing machine.
 
    .. figure:: images/vm_existing_machine.png
 
@@ -458,7 +459,7 @@ def process_request(url, method, user, password, headers, payload=None):
   r = urlreq(url, verb=method, auth="BASIC", user=user, passwd=password, params=payload, verify=False, headers=headers)
   return r	
 
-#.   Copy the contents into the escript.  This section of the escript define the request parameters to filter the specific VM instead of all the VMs in the cluster.
+#. Copy the contents into the escript.  This section of the escript define the request parameters to filter the specific VM instead of all the VMs in the cluster.
   
    .. code-block:: bash
 
@@ -471,7 +472,7 @@ payload = {
   "sort_attribute": "vm_name"
 }	
 
-#.  Copy the contents into the escript.  This section will execute and retrieve the specific VM.
+#. Copy the contents into the escript.  This section will execute and retrieve the specific VM.
 
    .. code-block:: bash
 
@@ -488,7 +489,7 @@ for vm in vm_list_json['entities']:
     if (vm['spec']['name'] == "@@{vmname}@@"):
       vm_json = vm
       
-#.  Copy the contents into the escript.  This section manipulates the json contents to change to the new memory size and power off the VM.
+#. Copy the contents into the escript.  This section manipulates the json contents to change to the new memory size and power off the VM.
 
    .. code-block:: bash
 
