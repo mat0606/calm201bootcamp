@@ -229,7 +229,7 @@ Nutanix APIs were available in REST (Representational State Transfer).  REST ser
 
 #. **PUT** Replace all the representations of the member resource with the representation in the request body.
 
-#. **PATCH** Update all the representations of the member resource or may create the member resource if it does not exist, using the instructions in the request body.
+#. **PATCH** Update all the representations of the member resource or may create the member resource if it does not exist, using the instructions in the request body.
 
 #. **DELETE** Delete all the representations of the member resource
 
@@ -264,7 +264,7 @@ The purpose for cloning the Centos VM is to allow the trainee to change the memo
 
    .. figure:: images/pc_vm.png
 
-#.  Click on Clone.  Name it to CentOS<trainee number>
+#.  Click on **Clone**.  Name it to **CentOS<trainee number>**
    .. figure:: images/vm_clone.png
 
 Change the VM Memory
@@ -329,11 +329,11 @@ API Verification with Postman
 
    .. figure:: images/postman_authorization.png
 
-#. Fill in the **header**.
+#. Fill in the **Header**.
 
    .. figure:: images/postman_header.png
 
-#. Fill in the following in the **body**.
+#. Fill in the following in the **Body**.
 
    .. figure:: images/postman_body.png
 
@@ -375,15 +375,19 @@ Create a dynamic variable in Calm
 
 #. Examine the following python scripts.  This section of the python script configured the user name, password, Prism Central IP address (destination for the api) and the request structure.   Copy this contents into the escript
 
-  .. code-block:: python
+.. code-block:: python
 
 user = "admin"
 password = "Fill in the password in your PC"
 ip = "Fill in the PC IP"
 
-def process_request(url, method, user, password, headers, payload=None):
-  r = urlreq(url, verb=method, auth="BASIC", user=user, passwd=password, params=payload, verify=False, headers=headers)
+ def process_request(url, method, user, password, headers, payload=None):
+  r = urlreq(url, verb=method, auth="BASIC", user=user, passwd=password, params=payload, 
+ verify=False, headers=headers)
 return r
+
+
+
 
   
 
