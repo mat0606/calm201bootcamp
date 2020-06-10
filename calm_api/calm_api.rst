@@ -231,7 +231,7 @@ Nutanix APIs were available in REST (Representational State Transfer).  REST ser
 
 #. **PATCH** Update all the representations of the member resource, or may create the member resource if it does not exist, using the instructions in the request body.
 
-#. **DELETE** Delete all the representations of the member resource
+#. **DELETE** Delete all the representations of the member resource
 
 Each API call would comprise of the following:
 
@@ -290,10 +290,9 @@ Operation 1: Retrieve a list of VM for the user to select
 
 #. Click on the link to examine the api to retrieve a list of VMs in the Nutanix clusters.
 
-   .. code-block:: bash
+   
 	https://www.nutanix.dev/reference/prism_central/v3/api/vms/postvmslist/
 
-   .. note::
 
 #. Each API call would comprise of the following:
 	-  URL of the REST service. **https://<Prism Central IP>:9440/api/nutanix/v3/vms/list** 
@@ -338,10 +337,12 @@ API Verification with Postman
 
    .. figure:: images/postman_body.png
 
-#. Click on **Send**.
+#. Click on **Send**
+
    .. figure:: images/postman_send.png
 
-#. Scroll down to view the **response of the REST service call**.  This is successful.
+#. Scroll down to view the **response of the REST service call**.  This is an example of successful response
+
    .. figure:: images/postman_success.png
 
 #. Take note of the response structure.  The **VM name** was in **entities.metadata.name**.  The **VM uuid** was in **entities.metadata.uuid**.  The VM name was used to display for user selection.  
@@ -372,7 +373,7 @@ Create a dynamic variable in Calm
 
    .. figure:: images/variable_vmname.png
 
-#. Examine the following python scripts.  This section of the python script configured the user name, password, Prism Central IP address (destination for the api) and the request structure.   Copy this contents into the escript.
+#. Examine the following python scripts.  This section of the python script configured the user name, password, Prism Central IP address (destination for the api) and the request structure.   Copy this contents into the escript
 
   .. code-block:: bash
 
@@ -384,7 +385,7 @@ def process_request(url, method, user, password, headers, payload=None):
   r = urlreq(url, verb=method, auth="BASIC", user=user, passwd=password, params=payload, verify=False, headers=headers)
 return r
 
-  .. note::
+  
 
 #. The payload was the mandatory request parameters to be passed into the api.  Please copy the contents into the escript
   
@@ -397,9 +398,9 @@ payload = {
   "length": 256,
   "sort_attribute": "vm_name"
 }
-  .. note::
 
-#. This section of the python script was to invoke the request to the api.  Copy this section of the scripts into the escript.
+
+#. This section of the python script was to invoke the request to the api.  Copy this section of the scripts into the escript
   
    .. code-block:: bash
 
@@ -410,9 +411,8 @@ url_method = "POST"
 
 r = process_request(url, url_method, user, password, headers, json.dumps(payload))
 
-.. note::
 
-#. This section of the python script was to extract the vm name from the api response.
+#. This section of the python script was to extract the vm name from the api response
  
    .. code-block:: bash
 
@@ -424,7 +424,7 @@ for vm in vm_list_json['entities']:
 
 print ','.join(vm_list)   
 
-   .. note::
+   
 
 #. This was the picture of the consolidated script.
 
@@ -458,10 +458,11 @@ Operation 2: Retrieve the VM details and power off the VM
 
 #. Refer to the following api to update the specification of the VM
 
-   .. code-block:: bash
+   
+
 	https://www.nutanix.dev/reference/prism_central/v3/api/vms/putvmsuuid/
 
-   .. note::
+   
 
 #. Copy the contents into the escript.  This section of the escript defines the following:
 
@@ -470,6 +471,7 @@ Operation 2: Retrieve the VM details and power off the VM
 	- Destination of the API: <Prism Central>
 
 	- Define the structure for the http request.
+
 
    .. code-block:: bash
 
@@ -481,7 +483,7 @@ def process_request(url, method, user, password, headers, payload=None):
   r = urlreq(url, verb=method, auth="BASIC", user=user, passwd=password, params=payload, verify=False, headers=headers)
   return r	
 
-   .. note::
+   
 
 #. Copy the contents into the escript.  This section of the escript define the request parameters to filter the specific VM instead of all the VMs in the cluster.
   
@@ -496,7 +498,7 @@ payload = {
   "sort_attribute": "vm_name"
 }
 
-.. note::
+
 
 #. Copy the contents into the escript.  This section will execute and retrieve the specific VM.
 
@@ -515,7 +517,7 @@ for vm in vm_list_json['entities']:
     if (vm['spec']['name'] == "@@{vmname}@@"):
       vm_json = vm	
 
-   .. note::
+   
       
 #. Copy the contents into the escript.  This section manipulates the json contents to change to the new memory size and power off the VM.
 
@@ -529,7 +531,7 @@ vm_json['spec']['resources']['memory_size_mib'] = @@{newMemSize}@@
 vm_json['spec']['resources']['power_state'] = "OFF"
 print "VM JSON: " + json.dumps(vm_json)
 
-   .. note::
+   
 
 #. Copy the contents into the escript.  This section will put the new json specification to the Prism Central to execute the changes.  If Prism Central executed the changes successfully, it will return exit 0.  Otherwise, it is exit 1.
 
@@ -546,7 +548,7 @@ if (r.ok):
 else:  
   exit(1)  	
 
-   .. note::
+   
 
 #. Launch the Blueprint.  
 
