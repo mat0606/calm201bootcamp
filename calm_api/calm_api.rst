@@ -227,9 +227,9 @@ Nutanix APIs were available in REST (Representational State Transfer).  REST ser
 
 #. **POST** Create a member resource in the member resource using the instructions in the request body
 
-#. **PUT** Replace all the representations of the member resource with the representation in the request body.
+#. **PUT** Replace all the representations of the member resource with the representation in the request body.
 
-#. **PATCH** Update all the representations of the member resource, or may create the member resource if it does not exist, using the instructions in the request body.
+#. **PATCH** Update all the representations of the member resource or may create the member resource if it does not exist, using the instructions in the request body.
 
 #. **DELETE** Delete all the representations of the member resource
 
@@ -375,7 +375,7 @@ Create a dynamic variable in Calm
 
 #. Examine the following python scripts.  This section of the python script configured the user name, password, Prism Central IP address (destination for the api) and the request structure.   Copy this contents into the escript
 
-  .. code-block:: bash
+  .. code-block:: json
 
 user = "admin"
 password = "Fill in the password in your PC"
@@ -389,7 +389,7 @@ return r
 
 #. The payload was the mandatory request parameters to be passed into the api.  Please copy the contents into the escript
   
-   .. code-block:: bash
+   .. code-block:: json
 
 payload = {
   "kind": "vm",
@@ -402,7 +402,7 @@ payload = {
 
 #. This section of the python script was to invoke the request to the api.  Copy this section of the scripts into the escript
   
-   .. code-block:: bash
+   .. code-block:: json
 
 base_url = "https://" + ip + ":9440/api/nutanix/v3/vms"
 url = base_url + "/list"
@@ -414,7 +414,7 @@ r = process_request(url, url_method, user, password, headers, json.dumps(payload
 
 #. This section of the python script was to extract the vm name from the api response
  
-   .. code-block:: bash
+   .. code-block:: json
 
 vm_list = []
 vm_list_json = r.json()
@@ -473,7 +473,7 @@ Operation 2: Retrieve the VM details and power off the VM
 	- Define the structure for the http request.
 
 
-   .. code-block:: bash
+   .. code-block:: json
 
 user = "@@{PC.username}@@"
 password = "@@{PC.secret}@@"
@@ -487,7 +487,7 @@ def process_request(url, method, user, password, headers, payload=None):
 
 #. Copy the contents into the escript.  This section of the escript define the request parameters to filter the specific VM instead of all the VMs in the cluster.
   
-   .. code-block:: bash
+   .. code-block:: json
 
 payload = {
   "filter": "vm_name==@@{vmname}@@",
@@ -502,7 +502,7 @@ payload = {
 
 #. Copy the contents into the escript.  This section will execute and retrieve the specific VM.
 
-   .. code-block:: bash
+   .. code-block:: json
 
 base_url = "https://" + ip + ":9440/api/nutanix/v3/vms"
 url = base_url + "/list"
@@ -521,7 +521,7 @@ for vm in vm_list_json['entities']:
       
 #. Copy the contents into the escript.  This section manipulates the json contents to change to the new memory size and power off the VM.
 
-   .. code-block:: bash
+   .. code-block:: json
 
 del vm_json['status']
 del vm_json['spec']['resources']['memory_size_mib']
@@ -535,7 +535,7 @@ print "VM JSON: " + json.dumps(vm_json)
 
 #. Copy the contents into the escript.  This section will put the new json specification to the Prism Central to execute the changes.  If Prism Central executed the changes successfully, it will return exit 0.  Otherwise, it is exit 1.
 
-   .. code-block:: bash
+   .. code-block:: json
 
 url = base_url + "/" + str(vm_json['metadata']['uuid'])
 url_method = "PUT"
