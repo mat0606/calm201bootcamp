@@ -375,7 +375,8 @@ Create a dynamic variable in Calm
 
 #. Examine the following python scripts.  This section of the python script configured the user name, password, Prism Central IP address (destination for the api) and the request structure.   Copy this contents into the escript
 
-.. code-block:: python
+   .. code-block:: python
+   :linenos:
 
 user = "admin"
 password = "Fill in the password in your PC"
@@ -388,13 +389,10 @@ return r
 
 
 
-
-  
-
 #. The payload was the mandatory request parameters to be passed into the api.  Please copy the contents into the escript
   
    .. code-block:: python
-
+   :linenos:
 payload = {
   "kind": "vm",
   "sort_order": "ASCENDING",
@@ -407,7 +405,7 @@ payload = {
 #. This section of the python script was to invoke the request to the api.  Copy this section of the scripts into the escript
   
    .. code-block:: python
-
+   :linenos:
 base_url = "https://" + ip + ":9440/api/nutanix/v3/vms"
 url = base_url + "/list"
 headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
@@ -419,7 +417,7 @@ r = process_request(url, url_method, user, password, headers, json.dumps(payload
 #. This section of the python script was to extract the vm name from the api response
  
    .. code-block:: python
-
+   :linenos:
 vm_list = []
 vm_list_json = r.json()
 for vm in vm_list_json['entities']:
@@ -478,21 +476,21 @@ Operation 2: Retrieve the VM details and power off the VM
 
 
    .. code-block:: python
-
+   :linenos:
 user = "@@{PC.username}@@"
 password = "@@{PC.secret}@@"
 ip = "@@{PC_IP}@@"
 
 def process_request(url, method, user, password, headers, payload=None):
-  r = urlreq(url, verb=method, auth="BASIC", user=user, passwd=password, params=payload, verify=False, headers=headers)
-  return r	
+r = urlreq(url, verb=method, auth="BASIC", user=user, passwd=password, params=payload, verify=False, headers=headers)
+return r	
 
    
 
 #. Copy the contents into the escript.  This section of the escript define the request parameters to filter the specific VM instead of all the VMs in the cluster.
   
    .. code-block:: python
-
+   :linenos:
 payload = {
   "filter": "vm_name==@@{vmname}@@",
   "kind": "vm",
@@ -507,7 +505,7 @@ payload = {
 #. Copy the contents into the escript.  This section will execute and retrieve the specific VM.
 
    .. code-block:: python
-
+   :linenos:
 base_url = "https://" + ip + ":9440/api/nutanix/v3/vms"
 url = base_url + "/list"
 headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
@@ -526,7 +524,7 @@ for vm in vm_list_json['entities']:
 #. Copy the contents into the escript.  This section manipulates the json contents to change to the new memory size and power off the VM.
 
    .. code-block:: python
-
+   :linenos:
 del vm_json['status']
 del vm_json['spec']['resources']['memory_size_mib']
 del vm_json['spec']['resources']['power_state']
@@ -540,7 +538,7 @@ print "VM JSON: " + json.dumps(vm_json)
 #. Copy the contents into the escript.  This section will put the new json specification to the Prism Central to execute the changes.  If Prism Central executed the changes successfully, it will return exit 0.  Otherwise, it is exit 1.
 
    .. code-block:: python
-
+   :linenos:
 url = base_url + "/" + str(vm_json['metadata']['uuid'])
 url_method = "PUT"
 r = process_request(url, url_method, user, password, headers, json.dumps(vm_json))
