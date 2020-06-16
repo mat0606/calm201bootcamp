@@ -431,8 +431,8 @@ Create a dynamic variable in Calm
 
    .. figure:: images/calm_launch_bp.png
 
-Operation 2: Retrieve the VM details and power off the VM
-..........................................................
+Operation 2: Retrieve the VM details, Update the new memory and power off the VM
+................................................................................
 
 #. Go to the **Service** on the right side of the screen.  Change the **Cloud** from **Nutanix** to **Existing Machine**.  Changing the VM memory is not to provision but automating on an existing machine.
 
