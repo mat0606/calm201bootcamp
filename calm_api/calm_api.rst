@@ -30,11 +30,10 @@ Nutanix Calm Marketplace and ServiceNow integration allowed our customer to prov
 
 One of the key benefits in our Private Cloud solution was to bring public cloud experience into the private cloud.  Automation was a key driver behind this.  The objectives were to equip our automation SMEs with the skill sets to help our customers to streamline the process and integrate with disparate technologies through the use of api.
 
-
 Create a Project in Calm
 ++++++++++++++++++++++++
 
-Projects are the logical construct that integrate Calm with Nutanix’s native Self-Service Portal (SSP) capabilities, allowing an administrator to assign both infrastructure resources and the roles/permissions of Active Directory users/groups to specific Blueprints and Applications.
+Projects are the logical construct that integrate Calm with Nutanixâ€™s native Self-Service Portal (SSP) capabilities, allowing an administrator to assign both infrastructure resources and the roles/permissions of Active Directory users/groups to specific Blueprints and Applications.
 
 
 #. Click on **Project** in the left hand toolbar .  Click on **Create Project**.
@@ -57,6 +56,7 @@ Projects are the logical construct that integrate Calm with Nutanix’s native Sel
 #. Click on **Save & Configure Environment**
 
    .. figure:: images/project_quota.png
+
 
 Create a Blueprint in Calm
 ++++++++++++++++++++++++++
@@ -141,9 +141,9 @@ Blueprint is like an architect blueprint which design every facet from the pilla
 
    .. figure:: images/service_name.png
 
-#. Fill in the **VM Configuration**.
+#.  Select Existing machine in the **VM Configuration**.
 
-   .. figure:: images/vm.png
+   .. figure:: images/vm-existing-machine.png
 
 #. Copy the **cloud-init** contents into the screen.
   
@@ -292,7 +292,7 @@ The use case could be translated into 3 operations:
 
 
 Operation 1: Retrieve a list of VM for the user to select
-..............................................................
+.........................................................
 
 #. Click on the link to examine the api to retrieve a list of VMs in the Nutanix clusters.
 
